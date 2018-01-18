@@ -7,31 +7,31 @@ let fakeServerData = {
     playlists: [
       {
         name: 'Weewo',
-        songs: [{name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234}]
+        songs: [{name: 'Irrational Friend', duration: 1234},
+                {name: 'Salvador', duration: 1234},
+                {name: 'Get Through This', duration: 1234},
+                {name: 'Parking Lots', duration: 1234}]
       },
       {
         name: 'Discover Weekly',
-        songs: [{name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234}]
+        songs: [{name: 'New Slang', duration: 1234},
+                {name: 'Heaven on Fire', duration: 1234},
+                {name: 'Beat It', duration: 1234},
+                {name: 'Cape Cod Kwassa Kwassa', duration: 1234}]
       },
       {
         name: 'phenom',
-        songs: [{name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234}]
+        songs: [{name: 'Fazerdaze', duration: 1234},
+                {name: 'Ladyfingers', duration: 1234},
+                {name: 'Rock With You', duration: 1234},
+                {name: 'Passenger Seat', duration: 1234}]
       },
       {
         name: 'piano crey',
-        songs: [{name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234},
-                {name: 'beat it', duration: 1234}]
+        songs: [{name: 'Gympopedie', duration: 1234},
+                {name: 'Claire de Lune', duration: 1234},
+                {name: 'Flowers', duration: 1234},
+                {name: 'Autumn Colors', duration: 1234}]
       }
     ]
   }
@@ -76,14 +76,16 @@ class SearchBar extends Component{
 
 class Playlist extends Component{
   render() {
+    let playlist = this.props.playlist
     return(
       <div>
         <img />
-        <h3>Playlist Name</h3>
+        <h3>{playlist.name}</h3>
         <ul>
-          <li>Song 1</li>
-          <li>Song 2</li>
-          <li>Song 3</li>
+          {
+            playlist.songs.map(song => 
+              <li> {song.name} </li>
+          )}
         </ul>
       </div>
     )
@@ -112,10 +114,10 @@ class App extends Component {
         </div>
         <SearchBar/>
         <div className="playlists">
-          <Playlist/>
-          <Playlist/>
-          <Playlist/>
-          <Playlist/>
+        {
+          this.state.serverData.user.playlists.map(playlist => 
+            <Playlist playlist={playlist}/>
+        )}
         </div> 
         </div>: <h1> Loading ...  </h1>
       }
