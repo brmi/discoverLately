@@ -68,7 +68,8 @@ class SearchBar extends Component{
     return(
       <div className="search">
         <img/>
-        <input type="text" />
+        <input type="text" onKeyUp={event => 
+          this.props.onTextChange(event.target.value)} />
       </div>
     )
   }
@@ -95,13 +96,16 @@ class Playlist extends Component{
 class App extends Component {
   constructor(){
     super();
-    this.state = {serverData: {}}
+    this.state = {serverData: {},
+    filterString: ''
+    }
   }
   componentDidMount() {
     setTimeout( () => {
       this.setState({serverData: fakeServerData});
-    }, 1000);  
+    }, 1000);
   }
+
   render() {
     return (
       <div className="App">
@@ -112,10 +116,13 @@ class App extends Component {
           <PlaylistCounter playlists={this.state.serverData.user.playlists}/>
           <HoursCounter playlists={this.state.serverData.user.playlists}/>
         </div>
-        <SearchBar/>
+        <SearchBar onTextChange={text => this.setState({filterString : text})}/>
         <div className="playlists">
         {
-          this.state.serverData.user.playlists.map(playlist => 
+          this.state.serverData.user.playlists.filter(playlist =>
+              playlist.name.toLowerCase().includes(
+                this.state.filterString.toLowerCase())
+            ).map(playlist => 
             <Playlist playlist={playlist}/>
         )}
         </div> 
