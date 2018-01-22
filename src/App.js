@@ -1,135 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-
-let fakeServerData = {
-  user: {
-    name: '{{display_name}}',
-    playlists: [
-      {
-        name: 'Weewo',
-        songs: [{name: 'Irrational Friend', duration: 1234},
-                {name: 'Salvador', duration: 1234},
-                {name: 'Get Through This', duration: 1234},
-                {name: 'Parking Lots', duration: 1234}]
-      },
-      {
-        name: 'Discover Weekly',
-        songs: [{name: 'New Slang', duration: 1234},
-                {name: 'Heaven on Fire', duration: 1234},
-                {name: 'Beat It', duration: 1234},
-                {name: 'Cape Cod Kwassa Kwassa', duration: 1234}]
-      },
-      {
-        name: 'phenom',
-        songs: [{name: 'Fazerdaze', duration: 1234},
-                {name: 'Ladyfingers', duration: 1234},
-                {name: 'Rock With You', duration: 1234},
-                {name: 'Passenger Seat', duration: 1234}]
-      },
-      {
-        name: 'piano crey',
-        songs: [{name: 'Gympopedie', duration: 1234},
-                {name: 'Claire de Lune', duration: 1234},
-                {name: 'Flowers', duration: 1234},
-                {name: 'Autumn Colors', duration: 1234}]
-      }
-    ]
-  }
-};
-
-let playlistServerData = {};
-
-class PlaylistCounter extends Component {
-  render() {
-    return (
-      <div className='aggregate'>
-        <h2>{this.props.playlists.length} Playlists</h2>
-      </div>
-    )
-  }
-}
-
-class HoursCounter extends Component {
-  render() {
-    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
-      return songs.concat(eachPlaylist.songs)
-    }, [])
-    let totalDuration = allSongs.reduce((sum, eachSong) => {
-      return sum + eachSong.duration;
-    }, 0)
-    return (
-      <div className='aggregate'>
-        <h2>{Math.round(totalDuration/60)} hours</h2>
-      </div>
-    )
-  }
-}
-
-class SearchBar extends Component{
-  render() {
-    return(
-      <div className="search">
-        <img/>
-        <input type="text" onKeyUp={event => 
-          this.props.onTextChange(event.target.value)} />
-      </div>
-    )
-  }
-}
-
-class Playlist extends Component{
-  render() {
-    let playlist = this.props.playlist;
-    return(
-      <div>
-        <img />
-        <h3>{playlist.name}</h3>
-        <h4>{playlist.tracks.total}</h4>
-        <img src={playlist.images[0].url}/>
-        {
-        //   <ul>
-        //   {
-        //     playlist.songs.map(song => 
-        //       <li> {song.name} </li>
-        //   )}
-        // </ul>
-        }
-      </div>
-    )
-  }
-}
-
-class TopTracks extends Component {
-  render(){
-    let tracks = this.props.tracks;
-    return(
-      <div className='topTracks'>
-        <div className='albumCover'>
-          <img src={tracks.album.images[0].url}/>
-        </div>
-        <div>
-          <h3>{tracks.name}</h3>
-          <ul>
-            {
-              tracks.artists.map(artist =>
-                <li>{artist.name}</li>)
-            }
-          </ul>
-        </div>
-      </div>
-      )
-  }
-}
-
-class ExportPlaylistButton extends Component {
-  render() {
-    return(
-      <div>
-        <h1>Export Playlist to spotify :)</h1>
-      </div>
-    )
-  }
-}
+import TopTracks from './components/TopTracks'
+import Playlist from './components/Playlist'
+import Description from './components/Description'
+import ExportPlaylistButton from './components/ExportPlaylistButton'
 
 function getAllUrlParams(url) {
 
@@ -196,12 +70,7 @@ class App extends Component {
     accessToken = accessToken.access_token;
 
     this.state = {
-    userData: {
-      user_id: 0,
-      followers: 0,
-      href: '',
-      profilePic: ''
-    },
+    userData: {},
     filterString: '',
     artist: null,
     playlistServerData: {},
@@ -246,7 +115,7 @@ class App extends Component {
 
       // Add songs to playlist. 
         const BASE_URL = 'https://api.spotify.com/v1/users/';
-        const FETCH_URL = BASE_URL + this.state.userData.user_id + '/playlists/' + this.state.createdPlaylistData.id + '/tracks';
+        const FETCH_URL = BASE_URL + this.state.userData.id + '/playlists/' + this.state.createdPlaylistData.id + '/tracks';
         
         // get list of URIs
         var trackUris = this.state.topTracksData.items.map(tracks => tracks.uri);
@@ -281,14 +150,14 @@ class App extends Component {
     console.log("Creating Playlist... ", this.state.topTracksData);
 
     const BASE_URL = 'https://api.spotify.com/v1/users/';
-    const FETCH_URL = BASE_URL + this.state.userData.user_id + '/playlists';
+    const FETCH_URL = BASE_URL + this.state.userData.id + '/playlists';
     var accessToken = this.state.accessToken;
 
     var months    = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
     var currentDate = new Date();
     var thisMonth = months[currentDate.getMonth()];
-    var playlistName = 'Top Tracks ' + thisMonth;
+    var playlistName = 'Discover Lately ' + thisMonth;
     var playlistData = {
       name: playlistName,
     };
@@ -355,13 +224,7 @@ class App extends Component {
     fetch(FETCH_URL, myOptions)
       .then(response => response.json())
       .then(json => { 
-        this.setState(
-          { userData: {
-            user_id: json.id,
-            followers: json.followers.total,
-            profilePic: json.images[0].url
-          }, 
-        });
+        this.setState({userData: json});
         console.log('get user data: ', this.state.userData);
       });
   }
@@ -371,32 +234,20 @@ class App extends Component {
       <div className="App">
       {this.state.playlistServerData.items && this.state.userData && this.state.topTracksData.items ?
         <div>
-        <h1> Music Resume </h1>
-        <a href="#" onClick={this.createPlaylist}><ExportPlaylistButton /></a>
-        <img src={this.state.userData.profilePic}/ >
-        {
-          // <div className="numText">
-          //   <PlaylistCounter playlists={this.state.playlistServerData.items}/>
-          // </div>
-        }
-        <div className='topTracks'>
+          <Description />
+          <div><a href="#" onClick={this.createPlaylist} className="exportPlaylistLink"><ExportPlaylistButton /></a></div>
+          <h1> Discover Lately </h1>
+          
+          <div className="userData">
+            <div><img src={this.state.userData.images[0].url} /></div>
+          </div>
+        
+        <div>
           {
             this.state.topTracksData.items.map(tracks => 
               <TopTracks tracks={tracks}/>)
           }
         </div>
-       { 
-        // <SearchBar onTextChange={text => this.setState({filterString : text})}/>
-        //        <div className="playlists">
-        //        {
-        //          this.state.playlistServerData.items.filter(playlist =>
-        //              playlist.name.toLowerCase().includes(
-        //                this.state.filterString.toLowerCase())
-        //            ).map(playlist => 
-        //            <Playlist playlist={playlist}/>
-        //        )}
-        //        </div> 
-             }
         </div>: <h1> Loading ...  </h1>
       }
       </div>
