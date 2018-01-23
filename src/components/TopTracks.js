@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import PopularityDescription from './PopularityDescription'
 import PlaySong from './PlaySong'
 
-var count = 0;
-
 class TopTracks extends Component {
 
   constructor () {
@@ -24,12 +22,8 @@ class TopTracks extends Component {
 
   render(){
     let tracks = this.props.tracks;
-    count = count +1;
     return(
       <div className='topTracks'>
-        <div className = 'number'>
-          <p>{count}</p>
-        </div>
         <div className='albumCover'>
           <img src={tracks.album.images[0].url}/>
         </div>
@@ -38,19 +32,15 @@ class TopTracks extends Component {
           <ul>
             {
               tracks.artists.map(artist =>
-                <li>{artist.name}</li>)
+                <li className="artistNames">{artist.name}</li>)
             }
-            <li>
-
-              <div>
-                <div className = "popularity">
-                      <p className="mouseOverPopularity"> popularity: {tracks.popularity}</p>
-                </div>
+          </ul>
+            
+              <div className='trackContent'>
+              <p className="mouseOverPopularity">popularity: {tracks.popularity}</p>
                 <PlaySong tracks={tracks}/>
               </div>
 
-            </li>
-          </ul>
         </div>
       </div>
       )

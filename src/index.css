@@ -1,16 +1,32 @@
-@import url('https://fonts.googleapis.com/css?family=Contrail+One|PT+Sans+Caption');
+@import url('https://fonts.googleapis.com/css?family=family=Raleway|PT+Sans+Caption');
 
 body {
-  margin: 30px;
-  padding: 30px;
+  margin: 0 30px 0 30px;
+  padding: 0 30px 0 30px;
   font-family: 'PT Sans Caption', Arial, sans-serif;
   cursor: default;
 }
 h1{
 	text-align: left;
-	font-family: 'Contrail One', Arial, cursive;
-	font-size: 60px;
+	font-family: 'Raleway', Arial, cursive;
+	font-size: 70px;
 	text-align: left;
+	position: fixed;
+	width: 100%;
+	background-color: white;
+	top: 0;
+	height: 150px;
+	padding: 0; 
+	margin: 0;
+	display: flex;
+	align-items: center;
+	z-index: 3;
+	color:  #d6b9fd; /* header color */
+	color: black;
+}
+
+.header{
+	margin-bottom: 160px;
 }
 
 .userData{
@@ -28,21 +44,26 @@ h1{
 }
 
 .albumCover img{
-	width: 300px;
+	width: 250px;
 	height: auto;
 	margin-right: 50px;
+	padding: 20px;
+	opacity: 0.95;
 }
 
 .topTracks{
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	margin-bottom: 50px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	background: linear-gradient(#DBEDFF, #F9F1FD);
 }
 
 .topTracks h3{
-	font-size: 32px;
+	font-size: 38px;
 	margin: 0;
+	color: black;
 }
 
 ul {
@@ -56,14 +77,24 @@ ul li{
 	margin-right: 15px;
 }
 
+.artistNames{
+	color: black;
+	font-size: 28px;
+}
+
 .description{
 	position: fixed;
-	width: 250px;
-	text-align: center;
+	width: 86%;
+	text-align: left;
 	font-size: 18px;
-	top: 10%;
-	right: 60px;
-	background-color: white;
+	top: 115px;
+	/*background-color: white;*/
+	z-index: 4;
+}
+
+.description p{
+	margin: 0;
+	font-weight: bold;
 }
 
 .popularityDescription{
@@ -83,8 +114,10 @@ ul li{
 }
 
 
-p.mouseOverPopularity{
+.mouseOverPopularity{
 	display: inline-block;
+	color: black;
+	font-size: 24px;
 	margin: 0;
 }
 
@@ -92,12 +125,7 @@ p.mouseOverPopularity{
 	display: inline-block;
 }
 
-.description p{
-	margin: 0;
-	font-weight: bold;
-	border: 1px solid black;
-	padding: 10px;
-}
+
 
 /*.description p:hover{
 	color: blue;
@@ -110,16 +138,17 @@ p.mouseOverPopularity{
 }
 
 .exportPlaylist h2{
-	color: black;
+	color: #1a1b1a;
 	position: fixed;
-	top: 250px;
-	right: 50px;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	top: 30px;
+	left: 600px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	padding-right: 10px;
 	padding-left: 10px;
 	background-color: white;
-	border: 1px solid white;
+	z-index: 4;
+	border: 2px solid #1a1b1a;
 }
 
 .exportPlaylistLink{
@@ -127,8 +156,8 @@ p.mouseOverPopularity{
 }
 
 .exportPlaylistLink h2:hover{
-	color: blue;
-	border: 1px solid blue;
+	color: #4a1efa;
+	border: 2px solid #4a1efa; /* link hover color */
 }
 
 .number p{
@@ -165,8 +194,173 @@ audio{
 	right: 10px;
 }
 
-audio:hover{
-	cursor: pointer;
+.hide{
+	display:none;
+}
+
+/* Smaller Screen sizes */
+@media only screen and (max-width : 1024px) {
+	h1{
+		font-size: 44px;
+	}
+
+	.description{
+		font-size: 16px;
+	}
+
+	.exportPlaylist h2{
+		top: 36px;
+		left: 400px;
+		font-size: 18px;
+	}
+
+	.albumCover img{
+		width: 200px;
+	}
+
+	.topTracks h3{
+		font-size: 28px;
+		margin: 0;
+		color: black;
+	}
+
+	.artistNames{
+		color: black;
+		font-size: 22px;
+	}
+
+	.mouseOverPopularity{
+		font-size: 20px;
+	}
+}
+
+@media only screen and (max-width : 727px) {
+	.topTracks{
+		flex-direction: column;
+	}
+
+	h1{
+		font-size: 42px;
+	}
+
+	.description{
+		font-size: 18px;
+	}
+
+	.exportPlaylist h2{
+		top: 40px;
+		left: 380px;
+		font-size: 16px;
+	}
+}
+
+@media only screen and (max-width : 655px) {
+
+	h1{
+		font-size: 42px;
+	}
+
+	.description{
+		top: 150px;
+		font-size: 16px;
+	}
+
+	.exportPlaylist h2{
+		top: 90px;
+		left: 60px;
+		font-size: 16px;
+	}
+	.header{
+		margin-bottom: 200px;
+	}
+}
+
+@media only screen and (max-width : 556px) {
+
+
+	.topTracks h3{
+		font-size: 20px;
+		margin: 0;
+		color: black;
+	}
+
+	.artistNames{
+		color: black;
+		font-size: 18px;
+	}
+
+	.mouseOverPopularity{
+		font-size: 17px;
+	}
+
+	.header{
+		margin-bottom: 230px;
+	}
+
+	audio{
+		width: 200px !important;
+	}
+}
+
+@media only screen and (max-width : 380px) {
+
+	h1{
+		font-size: 34px;
+	}
+
+	.description{
+		top: 150px;
+		font-size: 14px;
+		width: 75%;
+		background-color: white;
+	}
+
+	.albumCover img{
+		width: 150px;
+		margin: 0;
+	}
+
+	.topTracks h3{
+		font-size: 20px;
+		margin: 0;
+		color: black;
+		text-align: center;
+	}
+
+	.artistNames{
+		color: black;
+		font-size: 18px;
+		text-align: center;
+	}
+
+	.mouseOverPopularity{
+		font-size: 17px;
+		text-align: center !important;
+		position: relative;
+		left: 15px;
+	}
+
+	ul{
+		width: 150px;
+		margin: 0 auto;
+	}
+	li{
+		text-align: center;
+		margin: 0 !important;
+	}
+
+	.trackContent{
+		width: 150px;
+		margin: 0 auto;
+	}
+
+	.header{
+		margin-bottom: 230px;
+	}
+
+	audio{
+		width: 150px !important;
+	}
 }
 
 

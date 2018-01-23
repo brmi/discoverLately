@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 
 class ExportPlaylistButton extends Component {
-  render() {
-    return(
-      <div className="exportPlaylist">
-        <h2>Export Playlist to spotify</h2>
-      </div>
-    )
-  }
+  	render() {
+  		let playlistExported =this.props.playlistExported;
+	    return(
+	      <div className="exportPlaylist">
+	        {!playlistExported && <h2>Export Playlist to Spotify!</h2>}
+	        {playlistExported && <h2> Playlist Exported! </h2>}
+	      </div>
+	    )
+  	}
 }
 
 export default ExportPlaylistButton;

@@ -5,6 +5,7 @@ import Playlist from './components/Playlist'
 import Description from './components/Description'
 import ExportPlaylistButton from './components/ExportPlaylistButton'
 
+
 function getAllUrlParams(url) {
 
   // get query string from url (optional) or window
@@ -76,6 +77,7 @@ class App extends Component {
     playlistServerData: {},
     topTracksData: {},
     createdPlaylistData: {},
+    playlistExported: false,
     accessToken: accessToken
     }
   }
@@ -140,6 +142,7 @@ class App extends Component {
         .catch(error => console.error('Error:', error))
         .then(response => {
           console.log('Success adding tracks... ', response);
+          this.setState({playlistExported: true});
         });
       } else {
         console.log('Do not have playlist data.');
@@ -235,8 +238,8 @@ class App extends Component {
       {this.state.playlistServerData.items && this.state.userData && this.state.topTracksData.items ?
         <div>
           <Description />
-          <div><a href="#" onClick={this.createPlaylist} className="exportPlaylistLink"><ExportPlaylistButton /></a></div>
-          <h1> Discover Lately </h1>
+          <div><a onClick={this.createPlaylist} className="exportPlaylistLink"><ExportPlaylistButton playlistExported={this.state.playlistExported}/></a></div>
+          <div className='header'><h1> Discover Lately </h1></div>
         
         <div>
           {
