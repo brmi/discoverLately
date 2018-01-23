@@ -311,13 +311,14 @@ audio{
 @media only screen and (max-width : 380px) {
 
 	h1{
-		font-size: 34px;
+		font-size: 42px;
+		text-align: center;
 	}
 
 	.description{
 		top: 150px;
 		font-size: 14px;
-		width: 75%;
+		width: 90%;
 		background-color: white;
 	}
 
