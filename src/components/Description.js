@@ -5,7 +5,7 @@ class Description extends Component {
     return(
       <div className="description">
         <p>
-          Here are your top songs from Spotify! Use the export button below to save your top tracks :-)
+          Here are your top songs from Spotify! Use the export link below to save your top tracks to a spotify playlist :-)
         </p>
       </div>
     )

@@ -237,10 +237,6 @@ class App extends Component {
           <Description />
           <div><a href="#" onClick={this.createPlaylist} className="exportPlaylistLink"><ExportPlaylistButton /></a></div>
           <h1> Discover Lately </h1>
-          
-          <div className="userData">
-            <div><img src={this.state.userData.images[0].url} /></div>
-          </div>
         
         <div>
           {

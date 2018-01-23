@@ -4,13 +4,13 @@ body {
   margin: 30px;
   padding: 30px;
   font-family: 'PT Sans Caption', Arial, sans-serif;
+  cursor: default;
 }
 h1{
 	text-align: left;
 	font-family: 'Contrail One', Arial, cursive;
 	font-size: 60px;
-	text-align: center;
-	margin: 0;
+	text-align: left;
 }
 
 .userData{
@@ -36,6 +36,7 @@ h1{
 .topTracks{
 	display: flex;
 	justify-content: flex-start;
+	align-items: center;
 	margin-bottom: 50px;
 }
 
@@ -60,8 +61,8 @@ ul li{
 	width: 250px;
 	text-align: center;
 	font-size: 18px;
-	top: 55px;
-	right: 50px;
+	top: 10%;
+	right: 60px;
 	background-color: white;
 }
 
@@ -81,9 +82,6 @@ ul li{
 	padding: 5px;
 }
 
-p.mouseOverPopularity:hover{
-	cursor: url('./icons/compact-disc.png'), auto;
-}
 
 p.mouseOverPopularity{
 	display: inline-block;
@@ -98,29 +96,44 @@ p.mouseOverPopularity{
 	margin: 0;
 	font-weight: bold;
 	border: 1px solid black;
-	padding: 5px;
+	padding: 10px;
 }
 
-.description p:hover{
+/*.description p:hover{
 	color: blue;
 	border: 1px solid blue;
 	cursor: url('./icons/compact-disc.png'), auto;
-}
+}*/
 
 .exportPlaylist {
 	cursor: url('./icons/music-player.png'), auto;
 }
 
 .exportPlaylist h2{
-	color: blue;
+	color: black;
 	position: fixed;
-	top: 200px;
+	top: 250px;
 	right: 50px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-right: 10px;
+	padding-left: 10px;
 	background-color: white;
+	border: 1px solid white;
 }
 
 .exportPlaylistLink{
 	text-decoration: none;
+}
+
+.exportPlaylistLink h2:hover{
+	color: blue;
+	border: 1px solid blue;
+}
+
+.number p{
+	font-size: 42px;
+	margin-right: 50px;
 }
 
 /* Play Song */
@@ -151,6 +164,12 @@ audio{
 	position: relative;
 	right: 10px;
 }
+
+audio:hover{
+	cursor: pointer;
+}
+
+
 
 
 

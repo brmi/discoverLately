@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PopularityDescription from './PopularityDescription'
 import PlaySong from './PlaySong'
 
+var count = 0;
+
 class TopTracks extends Component {
 
   constructor () {
@@ -22,8 +24,12 @@ class TopTracks extends Component {
 
   render(){
     let tracks = this.props.tracks;
+    count = count +1;
     return(
       <div className='topTracks'>
+        <div className = 'number'>
+          <p>{count}</p>
+        </div>
         <div className='albumCover'>
           <img src={tracks.album.images[0].url}/>
         </div>
@@ -37,11 +43,7 @@ class TopTracks extends Component {
             <li>
 
               <div>
-                <div> 
-                  {!this.state.showDescription && <PopularityDescription />}
-                </div>
-                <div className = "popularity" onMouseOut ={this.showDescription.bind(this)} 
-                      onMouseOver={this.showDescription.bind(this)}>
+                <div className = "popularity">
                       <p className="mouseOverPopularity"> popularity: {tracks.popularity}</p>
                 </div>
                 <PlaySong tracks={tracks}/>
