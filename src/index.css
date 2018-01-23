@@ -277,6 +277,12 @@ audio{
 
 @media only screen and (max-width : 556px) {
 
+	body {
+	  margin: 0 10px 0 10px;
+	  padding: 0 10px 0 10px;
+	  font-family: 'PT Sans Caption', Arial, sans-serif;
+	  cursor: default;
+	}
 
 	.topTracks h3{
 		font-size: 20px;
