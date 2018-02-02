@@ -4,6 +4,7 @@ import TopTracks from './components/TopTracks'
 import Playlist from './components/Playlist'
 import Description from './components/Description'
 import ExportPlaylistButton from './components/ExportPlaylistButton'
+import SignInPage from './components/SignInPage'
 
 
 function getAllUrlParams(url) {
@@ -82,6 +83,9 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    // get access token
+    let accessToken = getAllUrlParams(window.location.href);
+    this.state.accessToken = accessToken.access_token;
     this.getUserData();
     this.getPlaylistData();
     this.getTopTracksData();
@@ -236,7 +240,7 @@ class App extends Component {
     return (
       <div className="App">
       {this.state.playlistServerData.items && this.state.userData && this.state.topTracksData.items ?
-        <div>
+        <div className="content">
           <Description />
           <div><a onClick={this.createPlaylist} className="exportPlaylistLink"><ExportPlaylistButton playlistExported={this.state.playlistExported}/></a></div>
           <div className='header'><h1> Discover Lately </h1></div>
@@ -247,7 +251,7 @@ class App extends Component {
               <TopTracks tracks={tracks}/>)
           }
         </div>
-        </div>: <h1> Loading ...  </h1>
+        </div>: <div className="outerSignInDiv"><SignInPage /></div>
       }
       </div>
     )
